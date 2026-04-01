@@ -38,13 +38,11 @@
 
 **a. How you used AI**
 
-- How did you use AI tools during this project (for example: design brainstorming, debugging, refactoring)?
-- What kinds of prompts or questions were most helpful?
+- AI was useful for structuring the work into phases (UML first, CLI second, UI third), suggesting dataclasses and a Scheduler that reads through `Owner` instead of holding global state, and drafting pytest cases for sorting, recurrence, and conflicts. **Copilot-style** inline prompts on a specific method (for example `sort_by_time`) were faster than broad chat when the surrounding types were already fixed. The most helpful prompts were concrete and file-scoped (for example: given `Task.time` as `HH:MM`, how should the sort key work?) rather than open-ended requests to write the entire app. Using **separate chat sessions per phase** (design vs algorithms vs tests) reduced context mixing and kept each thread focused on one layer of the system.
 
 **b. Judgment and verification**
 
-- Describe one moment where you did not accept an AI suggestion as-is.
-- How did you evaluate or verify what the AI suggested?
+- One suggestion was to use Unicode arrows and symbols in CLI output for a polished look. On Windows default consoles that can raise encoding errors, so the implementation was adjusted to ASCII-only output in `main.py` and `explain_slot`, verified by running `python main.py` locally. The design stayed the same; only the presentation layer changed after a runtime check.
 
 ---
 
@@ -52,13 +50,11 @@
 
 **a. What you tested**
 
-- What behaviors did you test?
-- Why were these tests important?
+- Tests cover task completion, pet task list growth, chronological sort for mixed times, daily recurrence after `complete_task`, and conflict detection for duplicate clock times. These guard behaviors users rely on: ordering the day, not losing recurring work, and surfacing warnings instead of silent overlaps.
 
 **b. Confidence**
 
-- How confident are you that your scheduler works correctly?
-- What edge cases would you test next if you had more time?
+- Confidence: 4/5 (aligned with the README). With more time, next tests would include weekly recurrence across month boundaries, invalid `HH:MM` input, pets with zero tasks, and marking complete when the same description appears twice.
 
 ---
 
@@ -66,12 +62,12 @@
 
 **a. What went well**
 
-- What part of this project are you most satisfied with?
+- The split between data (`Owner`, `Pet`, `Task`) and behavior (`Scheduler`) stayed stable from UML to Streamlit and made the CLI demo trustworthy before wiring the UI.
 
 **b. What you would improve**
 
-- If you had another iteration, what would you improve or redesign?
+- Add priority-aware scheduling (not only time order), validation for time strings, and interval-based overlap for conflicts instead of exact clock matches.
 
 **c. Key takeaway**
 
-- What is one important thing you learned about designing systems or working with AI on this project?
+- Being the lead architect means owning the boundaries: AI can speed up scaffolding and tests, but you decide API shape, persistence (`session_state`), and which tradeoffs (like exact-time conflicts) are acceptable for the product scope.

@@ -55,6 +55,7 @@ classDiagram
         +filter_tasks(pairs, ...)
         +detect_time_conflicts(pairs)
         +complete_task(Owner, Pet, Task)
+        +explain_slot(Pet, Task)
     }
     Owner "1" --> "*" Pet : owns
     Pet "1" --> "*" Task : has
@@ -62,7 +63,7 @@ classDiagram
     Scheduler ..> Task : organizes
 ```
 
-A rendered export of the final diagram is in [`uml_final.png`](uml_final.png).
+A vector export of the final diagram is in [`uml_final.svg`](uml_final.svg) (open in a browser or VS Code preview).
 
 ## Features
 
@@ -80,6 +81,39 @@ A rendered export of the final diagram is in [`uml_final.png`](uml_final.png).
 - **Recurrence** — `Task.clone_for_next_occurrence` shifts `due_date` by one day or one week; `complete_task` marks the current instance complete and adds the next instance to the same pet.
 
 Tradeoff: conflict checks are **exact time equality** only — they do not model overlapping intervals (e.g. 09:00 for 60 minutes vs 09:30 for 30 minutes).
+
+## Testing PawPal+
+
+Run the suite from the project root:
+
+```bash
+python -m pytest
+```
+
+What the tests cover:
+
+- **Task completion** — `mark_complete` flips the completed flag.
+- **Task addition** — Adding tasks increases a pet’s task count.
+- **Sorting** — Tasks for a day are ordered chronologically by `HH:MM`.
+- **Daily recurrence** — Completing a daily task leaves a new pending instance with the next calendar day.
+- **Conflicts** — Two tasks at the same clock time produce at least one conflict warning.
+
+**Confidence:** **4 / 5** — Core flows are covered; remaining risk is mostly around edge cases (week boundaries for weekly recurrence, invalid time strings, and timezone-less “today” vs server date).
+
+## CLI and UI
+
+```bash
+python main.py
+streamlit run app.py
+```
+
+## Demo
+
+After `streamlit run app.py`, add pets and tasks, then use **Generate schedule** to see the sorted table and any conflict warnings.
+
+To embed a screenshot in a course page, save a capture as `pawpal_demo.png` in this folder and use:
+
+`<a href="pawpal_demo.png" target="_blank"><img src="pawpal_demo.png" title="PawPal App" width="640" alt="PawPal+ Streamlit app" /></a>`
 
 ## Getting started
 
