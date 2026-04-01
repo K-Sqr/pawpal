@@ -22,7 +22,7 @@ Your final app should:
 - Display the plan clearly (and ideally explain the reasoning)
 - Include tests for the most important scheduling behaviors
 
-## Architecture (draft UML)
+## Architecture (UML)
 
 ```mermaid
 classDiagram
@@ -63,7 +63,8 @@ classDiagram
     Scheduler ..> Task : organizes
 ```
 
-A vector export of the final diagram is in [`uml_final.svg`](uml_final.svg) (open in a browser or VS Code preview).
+- **PNG for submission:** [`uml_final.png`](uml_final.png) — class diagram export (same content as the Mermaid block below).
+- **Optional vector file:** [`uml_final.svg`](uml_final.svg) — if Windows does not open it, **drag the file into Chrome or Edge**, or use **Open with → a browser**.
 
 ## Features
 
@@ -111,9 +112,7 @@ streamlit run app.py
 
 After `streamlit run app.py`, add pets and tasks, then use **Generate schedule** to see the sorted table and any conflict warnings.
 
-To embed a screenshot in a course page, save a capture as `pawpal_demo.png` in this folder and use:
-
-`<a href="pawpal_demo.png" target="_blank"><img src="pawpal_demo.png" title="PawPal App" width="640" alt="PawPal+ Streamlit app" /></a>`
+<a href="pawpal_demo.png" target="_blank"><img src="pawpal_demo.png" title="PawPal+" width="640" alt="PawPal+ Streamlit app showing schedule and mark complete" /></a>
 
 ## Getting started
 
