@@ -17,8 +17,8 @@
 
 **b. Design changes**
 
-- Did your design change during implementation?
-- If yes, describe at least one change and why you made it.
+- The skeleton listed convenience methods like `list_pets()` on paper; the implementation keeps `Owner.pets` as a simple list and iterates directly, which avoided extra API surface while staying clear.
+- Recurrence handling lives in `Scheduler.complete_task` plus `Task.clone_for_next_occurrence` so the UI and CLI both go through one code path instead of duplicating date math on `Task` alone.
 
 ---
 
@@ -26,13 +26,11 @@
 
 **a. Constraints and priorities**
 
-- What constraints does your scheduler consider (for example: time, priority, preferences)?
-- How did you decide which constraints mattered most?
+- The scheduler considers **calendar due date** (which tasks belong to the selected day), **clock time** (for ordering), **duration** and **priority** (surfaced in `explain_slot` for transparency), and **completion status** (filtering). The strongest structural constraint is **date** (today’s plan), then **time order** for the displayed list. Priority is informational in this version rather than a reordering rule, so the owner still sees a time-ordered day while reading why each row matters.
 
 **b. Tradeoffs**
 
-- Describe one tradeoff your scheduler makes.
-- Why is that tradeoff reasonable for this scenario?
+- **Conflict detection** only flags tasks that share the **exact same `HH:MM` string**. It does not detect overlapping intervals when two long tasks run across each other at different start times. That keeps the implementation small and predictable for a course scope; a production app might store start/end datetimes or durations and check interval overlap instead.
 
 ---
 

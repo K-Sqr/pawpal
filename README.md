@@ -62,6 +62,25 @@ classDiagram
     Scheduler ..> Task : organizes
 ```
 
+A rendered export of the final diagram is in [`uml_final.png`](uml_final.png).
+
+## Features
+
+- **Owner and pets** — Register an owner name and multiple pets (species tag).
+- **Tasks** — Each task has a description, clock time (`HH:MM`), duration, priority, optional **once / daily / weekly** recurrence, due date, and completion flag.
+- **Scheduler** — Collects tasks through `Owner` → `Pet`, filters by date/pet/completion, **sorts by time**, and emits **same-time conflict** warnings (exact clock match).
+- **Recurring tasks** — Completing a daily or weekly task via `Scheduler.complete_task` appends the next occurrence with an updated `due_date`.
+- **Streamlit UI** — Session-persisted `Owner`, forms to add pets/tasks, generated schedule table with `explain_slot` rationale, and conflict warnings.
+
+## Smarter scheduling
+
+- **Sorting** — `Scheduler.sort_by_time` orders `(Pet, Task)` pairs by parsing `HH:MM` into hour and minute for stable ordering.
+- **Filtering** — `filter_tasks` narrows by pet name and/or completion status (used in the app and easy to extend).
+- **Conflicts** — `detect_time_conflicts` groups tasks by the same time string and returns readable warning lines (no crash; informational only).
+- **Recurrence** — `Task.clone_for_next_occurrence` shifts `due_date` by one day or one week; `complete_task` marks the current instance complete and adds the next instance to the same pet.
+
+Tradeoff: conflict checks are **exact time equality** only — they do not model overlapping intervals (e.g. 09:00 for 60 minutes vs 09:30 for 30 minutes).
+
 ## Getting started
 
 ### Setup
