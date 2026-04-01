@@ -1,11 +1,19 @@
 # PawPal+ Project Reflection
 
+## System Design — three core user actions
+
+1. **Register pets and care context** — Add an owner profile and one or more pets (name, species) so all tasks are tied to a real animal.
+2. **Schedule and maintain tasks** — Create care tasks with a time, priority, duration, and optional recurrence (daily/weekly) so feedings, walks, medications, and appointments stay organized.
+3. **See today’s plan** — View a clear schedule for a chosen day: tasks sorted by time, optional filters, and warnings if two items collide at the same clock time.
+
+---
+
 ## 1. System Design
 
 **a. Initial design**
 
-- Briefly describe your initial UML design.
-- What classes did you include, and what responsibilities did you assign to each?
+- The UML centers on four types: **Owner** (has many **Pet**), **Pet** (has many **Task**), and **Scheduler** (reads tasks through the owner’s pets, orders and filters them, and reports conflicts). **Task** holds description, clock time (`HH:MM`), duration, priority, frequency (`once` / `daily` / `weekly`), completion flag, and a due date for calendar-day filtering and recurrence.
+- **Owner** stores identity and a list of pets; **Pet** stores identity and its task list. **Scheduler** does not own data; it aggregates `(Pet, Task)` pairs, sorts by time, filters by pet name or completion, detects same-time conflicts, and completes tasks while spawning the next occurrence for recurring items.
 
 **b. Design changes**
 

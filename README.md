@@ -22,6 +22,46 @@ Your final app should:
 - Display the plan clearly (and ideally explain the reasoning)
 - Include tests for the most important scheduling behaviors
 
+## Architecture (draft UML)
+
+```mermaid
+classDiagram
+    class Owner {
+        +str name
+        +list pets
+        +add_pet(Pet pet)
+        +list_pets()
+    }
+    class Pet {
+        +str name
+        +str species
+        +list tasks
+        +add_task(Task task)
+    }
+    class Task {
+        +str description
+        +str time
+        +int duration_minutes
+        +str priority
+        +TaskFrequency frequency
+        +bool completed
+        +date due_date
+        +mark_complete()
+    }
+    class Scheduler {
+        +get_all_tasks_with_pet(Owner owner)
+        +tasks_for_date(Owner owner, date on_date)
+        +sort_by_time(pairs)
+        +filter_tasks(pairs, ...)
+        +detect_time_conflicts(pairs)
+        +complete_task(Owner, Pet, Task)
+    }
+    Owner "1" --> "*" Pet : owns
+    Pet "1" --> "*" Task : has
+    Scheduler ..> Owner : reads
+    Scheduler ..> Task : organizes
+```
+
 ## Getting started
 
 ### Setup
