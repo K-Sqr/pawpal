@@ -112,7 +112,17 @@ streamlit run app.py
 
 After `streamlit run app.py`, add pets and tasks, then use **Generate schedule** to see the sorted table and any conflict warnings.
 
-<a href="pawpal_demo.png" target="_blank"><img src="pawpal_demo.png" title="PawPal+" width="640" alt="PawPal+ Streamlit app showing schedule and mark complete" /></a>
+**Owner and pets**
+
+<a href="pawpal_demo_owner.png" target="_blank"><img src="pawpal_demo_owner.png" title="Owner and pets" width="640" alt="PawPal+ owner and pets section" /></a>
+
+**Tasks — add a task**
+
+<a href="pawpal_demo_tasks.png" target="_blank"><img src="pawpal_demo_tasks.png" title="Tasks" width="640" alt="PawPal+ tasks form with success message" /></a>
+
+**Today’s schedule and mark complete**
+
+<a href="pawpal_demo.png" target="_blank"><img src="pawpal_demo.png" title="Schedule" width="640" alt="PawPal+ schedule table and mark complete" /></a>
 
 ## Getting started
 
