@@ -38,7 +38,7 @@
 
 **a. How you used AI**
 
-- AI was useful for structuring the work into phases (UML first, CLI second, UI third), suggesting dataclasses and a Scheduler that reads through `Owner` instead of holding global state, and drafting pytest cases for sorting, recurrence, and conflicts. **Copilot-style** inline prompts on a specific method (for example `sort_by_time`) were faster than broad chat when the surrounding types were already fixed. The most helpful prompts were concrete and file-scoped (for example: given `Task.time` as `HH:MM`, how should the sort key work?) rather than open-ended requests to write the entire app. Using **separate chat sessions per phase** (design vs algorithms vs tests) reduced context mixing and kept each thread focused on one layer of the system.
+- AI was useful for structuring the work into phases (UML first, CLI second, UI third), suggesting dataclasses and a Scheduler that reads through `Owner` instead of holding global state, and drafting pytest cases for sorting, recurrence, and conflicts. The course references **GitHub Copilot in VS Code**; I used **Cursor’s AI** (inline and chat) in the same way: short, file-scoped prompts on a specific method (for example `sort_by_time`) worked better than asking for the whole app at once. The most helpful prompts were concrete (for example: given `Task.time` as `HH:MM`, how should the sort key work?). Using **separate chat sessions per phase** (design vs algorithms vs tests) reduced context mixing and kept each thread focused on one layer of the system.
 
 **b. Judgment and verification**
 
